@@ -151,7 +151,7 @@ parsed, so the package does not pull in a YAML parser.
 ## GitHub Action
 
 ```yaml
-- uses: actions/checkout@v4
+- uses: actions/checkout@v7
 - uses: pulzar-net/codec-test@v0
   with:
     files: vendors/**/codecs/test_*.json

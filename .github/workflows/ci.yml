@@ -12,8 +12,8 @@ jobs:
       matrix:
         python-version: ['3.9', '3.13']
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install . pytest && pytest tests
@@ -23,15 +23,15 @@ jobs:
       run:
         working-directory: js
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
       - run: npm ci && npm test && npm run build && npm pack --dry-run
   action:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: passing vectors pass
         uses: ./
         with:
