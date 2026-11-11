@@ -1,0 +1,34 @@
+name: LoRaWAN codec test
+description: Run LoRaWAN payload codecs against their test vectors, as ChirpStack or The Things Stack would run them.
+branding:
+  icon: radio
+  color: blue
+inputs:
+  files:
+    description: >-
+      Test files (tests.json, test_decode_*.json, *-codec.yaml) and optionally one codec .js,
+      space-separated. Globs are expanded, ** included.
+    required: true
+  lns:
+    description: chirpstack or tts. By default tts for .yaml files and chirpstack otherwise.
+    required: false
+    default: ''
+  python-version:
+    description: Python to run the tester with.
+    required: false
+    default: '3.12'
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+    - shell: bash
+      run: python -m pip install --quiet "$GITHUB_ACTION_PATH"
+    - shell: bash
+      env:
+        FILES: ${{ inputs.files }}
+        LNS: ${{ inputs.lns }}
+      run: |
+        shopt -s nullglob; shopt -s globstar 2>/dev/null || true  # bash 3.2 on macOS has no globstar
+        codec-test ${LNS:+--lns "$LNS"} $FILES

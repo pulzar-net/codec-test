@@ -1,0 +1,7 @@
+[
+  {
+    "name": "report every hour",
+    "input": { "data": { "interval": 3600 } },
+    "expected": { "fPort": 2, "bytes": [0x0e, 0x10] }
+  }
+]

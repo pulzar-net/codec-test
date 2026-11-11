@@ -1,0 +1,17 @@
+[
+  {
+    "name": "open",
+    "input": {
+      "fPort": 1, // the uplink port
+      "bytes": [0x01, 0x00, 0x2a]
+    },
+    "expected": {
+      "data": { "open": true, "count": 42, "state": "on" }
+    }
+  },
+  {
+    "name": "unknown port",
+    "input": { "fPort": 9, "bytes": [0x01, 0x00, 0x2a] },
+    "expected": { "errors": ["unknown FPort"] }
+  }
+]

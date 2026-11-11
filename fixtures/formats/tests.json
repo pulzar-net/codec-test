@@ -1,0 +1,6 @@
+[
+  { "name": "open", "fPort": 1, "bytes": "01 00 2a", "expect": { "open": true, "count": 42 } },
+  { "name": "closed, port defaults to 1", "bytes": "000001", "expect": { "open": false, "state": "off" } },
+  { "name": "too short", "bytes": "01", "expect": null },
+  { "name": "decodes without an expectation", "bytes": "000000" }
+]

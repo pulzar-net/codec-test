@@ -1,0 +1,1189 @@
+{
+  "judge": [
+    {
+      "name": "subset: expected keys match",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 21.5
+        }
+      },
+      "output": {
+        "data": {
+          "t": 21.5
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: numbers within 1e-6 are equal",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 21.5
+        }
+      },
+      "output": {
+        "data": {
+          "t": 21.5000004
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: numbers outside it are not",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 21.5
+        }
+      },
+      "output": {
+        "data": {
+          "t": 21.50001
+        }
+      },
+      "passed": false,
+      "diffs": [
+        "t"
+      ]
+    },
+    {
+      "name": "subset: 1 and 1.0 in an array are equal, as JSON.stringify writes them",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "v": [
+            1.0,
+            2
+          ]
+        }
+      },
+      "output": {
+        "data": {
+          "v": [
+            1,
+            2.0
+          ]
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: nested key order matters, as JSON.stringify writes it",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "o": {
+            "a": 1,
+            "b": 2
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "o": {
+            "b": 2,
+            "a": 1
+          }
+        }
+      },
+      "passed": false,
+      "diffs": [
+        "o"
+      ]
+    },
+    {
+      "name": "subset: a boolean is not the number 1",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "f": true
+        }
+      },
+      "output": {
+        "data": {
+          "f": 1
+        }
+      },
+      "passed": false,
+      "diffs": [
+        "f"
+      ]
+    },
+    {
+      "name": "subset: only the expected keys are compared",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "output": {
+        "data": {
+          "t": 1,
+          "battery": 90
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: a missing key is a diff",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "output": {
+        "data": {}
+      },
+      "passed": false,
+      "diffs": [
+        "t"
+      ]
+    },
+    {
+      "name": "subset: an expected null matches a null",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": null
+        }
+      },
+      "output": {
+        "data": {
+          "t": null
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: expect null passes on errors",
+      "vector": {
+        "name": "v",
+        "expect": null
+      },
+      "output": {
+        "errors": [
+          "short"
+        ]
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: expect null fails on data",
+      "vector": {
+        "name": "v",
+        "expect": null
+      },
+      "output": {
+        "data": {
+          "t": 1
+        }
+      },
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: expect null passes on a throw",
+      "vector": {
+        "name": "v",
+        "expect": null
+      },
+      "threw": "boom",
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: expect null passes on a codec returning null, which the LNS refuses",
+      "vector": {
+        "name": "v",
+        "expect": null
+      },
+      "output": null,
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: a throw fails an expectation",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "threw": "boom",
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: a throw fails a vector with no expect",
+      "vector": {
+        "name": "v"
+      },
+      "threw": "boom",
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: no expect passes on an empty data object",
+      "vector": {
+        "name": "v"
+      },
+      "output": {
+        "data": {}
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: no expect fails without a data object, which the LNS refuses",
+      "vector": {
+        "name": "v"
+      },
+      "output": {},
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: no expect fails on data that is an array",
+      "vector": {
+        "name": "v"
+      },
+      "output": {
+        "data": [
+          1
+        ]
+      },
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: no expect fails on data null",
+      "vector": {
+        "name": "v"
+      },
+      "output": {
+        "data": null
+      },
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: no expect fails on errors",
+      "vector": {
+        "name": "v"
+      },
+      "output": {
+        "errors": [
+          "x"
+        ]
+      },
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: an empty errors list is no errors",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "output": {
+        "data": {
+          "t": 1
+        },
+        "errors": []
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: errors beside matching data still fail",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "output": {
+        "data": {
+          "t": 1
+        },
+        "errors": [
+          "x"
+        ]
+      },
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "subset: errors that are not an array are not errors",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "output": {
+        "data": {
+          "t": 1
+        },
+        "errors": "x"
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: warnings do not fail",
+      "vector": {
+        "name": "v",
+        "expect": {
+          "t": 1
+        }
+      },
+      "output": {
+        "data": {
+          "t": 1
+        },
+        "warnings": [
+          "low battery"
+        ]
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: an empty expect object compares nothing",
+      "vector": {
+        "name": "v",
+        "expect": {}
+      },
+      "output": {
+        "data": {}
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "subset: a codec returning a number fails",
+      "vector": {
+        "name": "v"
+      },
+      "output": 5,
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "stringify: identical output passes",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "data": {
+            "a": 1,
+            "b": 2
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "a": 1,
+          "b": 2
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "stringify: nested key order fails",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "data": {
+            "a": 1,
+            "b": 2
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "b": 2,
+          "a": 1
+        }
+      },
+      "passed": false,
+      "diffs": [
+        "data"
+      ]
+    },
+    {
+      "name": "stringify: top-level key order fails, with a note",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "data": {},
+          "warnings": []
+        }
+      },
+      "output": {
+        "warnings": [],
+        "data": {}
+      },
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "stringify: an extra key fails",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "data": {
+            "a": 1
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "a": 1
+        },
+        "warnings": []
+      },
+      "passed": false,
+      "diffs": [
+        "warnings"
+      ]
+    },
+    {
+      "name": "stringify: 1.0 and 1 are the same text",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "data": {
+            "a": 1.0
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "a": 1
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "stringify: a throw fails",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "data": {}
+        }
+      },
+      "threw": "boom",
+      "passed": false,
+      "diffs": []
+    },
+    {
+      "name": "stringify: expected errors pass when they match",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "stringify",
+        "expect": {
+          "errors": [
+            "unknown FPort"
+          ]
+        }
+      },
+      "output": {
+        "errors": [
+          "unknown FPort"
+        ]
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "equal: key order does not matter",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": {
+            "a": 1,
+            "b": 2
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "b": 2,
+          "a": 1
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "equal: 1 equals 1.0",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": {
+            "a": 1
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "a": 1.0
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "equal: true is not 1",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": {
+            "a": true
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "a": 1
+        }
+      },
+      "passed": false,
+      "diffs": [
+        "data"
+      ]
+    },
+    {
+      "name": "equal: null is not a missing key",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": {
+            "a": null
+          }
+        }
+      },
+      "output": {
+        "data": {}
+      },
+      "passed": false,
+      "diffs": [
+        "data"
+      ]
+    },
+    {
+      "name": "equal: array order matters",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": {
+            "a": [
+              1,
+              2
+            ]
+          }
+        }
+      },
+      "output": {
+        "data": {
+          "a": [
+            2,
+            1
+          ]
+        }
+      },
+      "passed": false,
+      "diffs": [
+        "data"
+      ]
+    },
+    {
+      "name": "equal: a warnings key the example omits fails",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": {}
+        }
+      },
+      "output": {
+        "data": {},
+        "warnings": []
+      },
+      "passed": false,
+      "diffs": [
+        "warnings"
+      ]
+    },
+    {
+      "name": "equal: normalizeUplink output is compared as a list",
+      "vector": {
+        "name": "v",
+        "routine": "normalizeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": [
+            {
+              "air": {
+                "temperature": 21
+              }
+            }
+          ]
+        }
+      },
+      "output": {
+        "data": {
+          "air": {
+            "temperature": 21
+          }
+        }
+      },
+      "passed": true,
+      "diffs": []
+    },
+    {
+      "name": "equal: normalizeUplink wraps even an empty object, as JavaScript finds it truthy",
+      "vector": {
+        "name": "v",
+        "routine": "normalizeUplink",
+        "input": {},
+        "match": "equal",
+        "expect": {
+          "data": [
+            {}
+          ]
+        }
+      },
+      "output": {
+        "data": {}
+      },
+      "passed": true,
+      "diffs": []
+    }
+  ],
+  "run": [
+    {
+      "name": "input: ChirpStack gets bytes, fPort 1 by default, recvTime as a Date, variables {}",
+      "codec": "function decodeUplink(input) {\n  return { data: {\n    recvTime: typeof input.recvTime,\n    iso: input.recvTime instanceof Date ? input.recvTime.toISOString() : input.recvTime,\n    variables: input.variables === undefined ? 'absent' : input.variables,\n    fPort: input.fPort,\n    bytes: input.bytes,\n    isArray: Array.isArray(input.bytes),\n    parsed: input.parsed === undefined ? 'absent' : input.parsed,\n    transport: input.transport === undefined ? 'absent' : input.transport\n  } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "0102",
+        "recvTime": "2026-10-11T08:30:00.000Z",
+        "expect": {
+          "recvTime": "object",
+          "iso": "2026-10-11T08:30:00.000Z",
+          "variables": {},
+          "fPort": 1,
+          "bytes": [
+            1,
+            2
+          ],
+          "isArray": true,
+          "parsed": "absent",
+          "transport": "absent"
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "input: The Things Stack gets no variables",
+      "codec": "function decodeUplink(input) {\n  return { data: {\n    recvTime: typeof input.recvTime,\n    iso: input.recvTime instanceof Date ? input.recvTime.toISOString() : input.recvTime,\n    variables: input.variables === undefined ? 'absent' : input.variables,\n    fPort: input.fPort,\n    bytes: input.bytes,\n    isArray: Array.isArray(input.bytes),\n    parsed: input.parsed === undefined ? 'absent' : input.parsed,\n    transport: input.transport === undefined ? 'absent' : input.transport\n  } };\n}\n",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "bytes": "0102",
+        "fPort": 5,
+        "recvTime": "2026-10-11T08:30:00.000Z",
+        "expect": {
+          "recvTime": "object",
+          "variables": "absent",
+          "fPort": 5
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "input: a vector's variables reach the codec",
+      "codec": "function decodeUplink(input) {\n  return { data: {\n    recvTime: typeof input.recvTime,\n    iso: input.recvTime instanceof Date ? input.recvTime.toISOString() : input.recvTime,\n    variables: input.variables === undefined ? 'absent' : input.variables,\n    fPort: input.fPort,\n    bytes: input.bytes,\n    isArray: Array.isArray(input.bytes),\n    parsed: input.parsed === undefined ? 'absent' : input.parsed,\n    transport: input.transport === undefined ? 'absent' : input.transport\n  } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "",
+        "recvTime": "2026-10-11T08:30:00.000Z",
+        "variables": {
+          "k": "v"
+        },
+        "expect": {
+          "variables": {
+            "k": "v"
+          }
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "input: BLE parsed and transport pass through when given",
+      "codec": "function decodeUplink(input) {\n  return { data: {\n    recvTime: typeof input.recvTime,\n    iso: input.recvTime instanceof Date ? input.recvTime.toISOString() : input.recvTime,\n    variables: input.variables === undefined ? 'absent' : input.variables,\n    fPort: input.fPort,\n    bytes: input.bytes,\n    isArray: Array.isArray(input.bytes),\n    parsed: input.parsed === undefined ? 'absent' : input.parsed,\n    transport: input.transport === undefined ? 'absent' : input.transport\n  } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "",
+        "fPort": 0,
+        "recvTime": "2026-10-11T08:30:00.000Z",
+        "parsed": {
+          "alarm": 17
+        },
+        "transport": "ble",
+        "expect": {
+          "parsed": {
+            "alarm": 17
+          },
+          "transport": "ble",
+          "fPort": 0,
+          "bytes": []
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "input: hex separators are ignored",
+      "codec": "function decodeUplink(i) {\n  if (i.bytes.length < 2) return { errors: ['short'] };\n  return { data: { t: ((i.bytes[0] << 8 | i.bytes[1]) << 16 >> 16) / 10 } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00 0A",
+        "expect": {
+          "t": 1
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "input: bytes may be given as numbers",
+      "codec": "function decodeUplink(i) {\n  if (i.bytes.length < 2) return { errors: ['short'] };\n  return { data: { t: ((i.bytes[0] << 8 | i.bytes[1]) << 16 >> 16) / 10 } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": [
+          255,
+          156
+        ],
+        "expect": {
+          "t": -10
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "input: odd-length hex fails the vector",
+      "codec": "function decodeUplink(i) {\n  if (i.bytes.length < 2) return { errors: ['short'] };\n  return { data: { t: ((i.bytes[0] << 8 | i.bytes[1]) << 16 >> 16) / 10 } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00A",
+        "expect": null
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "input: stringify and equal vectors pass input as written, recvTime a string",
+      "codec": "function decodeUplink(i) { return { data: { recvTime: typeof i.recvTime, variables: typeof i.variables } }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "routine": "decodeUplink",
+        "input": {
+          "bytes": [],
+          "fPort": 1,
+          "recvTime": "2026-10-11T08:30:00.000Z"
+        },
+        "match": "stringify",
+        "expect": {
+          "data": {
+            "recvTime": "string",
+            "variables": "undefined"
+          }
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "chirpstack: a codec is strict-mode, as ES modules are",
+      "codec": "function decodeUplink(i) { x = 1; return { data: {} }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00"
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "tts: a codec is sloppy-mode, as goja scripts are",
+      "codec": "function decodeUplink(i) { x = 1; return { data: {} }; }",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "bytes": "00"
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "chirpstack: Buffer is there",
+      "codec": "function decodeUplink(i) { var b = Buffer.from(i.bytes); return { data: { v: b.readUInt16BE(0), f: b.readFloatBE(0), hex: b.toString('hex') } }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "41480000",
+        "expect": {
+          "v": 16712,
+          "f": 12.5,
+          "hex": "41480000"
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "tts: Buffer is not",
+      "codec": "function decodeUplink(i) { return { data: { v: Buffer.from(i.bytes).length } }; }",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "bytes": "00",
+        "expect": {
+          "v": 1
+        }
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "tts: Decoder(bytes, port) is called when there is no decodeUplink",
+      "codec": "function Decoder(bytes, port) { return { n: bytes.length, port: port }; }",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "bytes": "0102",
+        "fPort": 3,
+        "expect": {
+          "n": 2,
+          "port": 3
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "chirpstack: Decoder alone is not called",
+      "codec": "function Decoder(bytes, port) { return { n: bytes.length }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "0102",
+        "expect": {
+          "n": 2
+        }
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "tts: Encoder(object, port) is called when there is no encodeDownlink",
+      "codec": "function Encoder(o, port) { return [o.x, port]; }",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "routine": "encodeDownlink",
+        "input": {
+          "data": {
+            "x": 7
+          },
+          "fPort": 3
+        },
+        "match": "equal",
+        "expect": {
+          "bytes": [
+            7,
+            3
+          ],
+          "fPort": 3
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "chirpstack: an encoder's own fPort stands",
+      "codec": "function encodeDownlink(i) { return { fPort: 2, bytes: [i.data.on ? 1 : 0] }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "routine": "encodeDownlink",
+        "input": {
+          "data": {
+            "on": true
+          }
+        },
+        "match": "stringify",
+        "expect": {
+          "fPort": 2,
+          "bytes": [
+            1
+          ]
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "tts: decodeDownlink and normalizeUplink are called by name",
+      "codec": "function decodeDownlink(i) { return { data: { on: i.bytes[0] === 1 } }; }\nfunction normalizeUplink(i) { return { data: { air: { temperature: i.data.t } } }; }",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "routine": "normalizeUplink",
+        "input": {
+          "data": {
+            "t": 21
+          }
+        },
+        "match": "equal",
+        "expect": {
+          "data": [
+            {
+              "air": {
+                "temperature": 21
+              }
+            }
+          ]
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "a codec that returns errors fails a vector with no expect",
+      "codec": "function decodeUplink(i) {\n  if (i.bytes.length < 2) return { errors: ['short'] };\n  return { data: { t: ((i.bytes[0] << 8 | i.bytes[1]) << 16 >> 16) / 10 } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "09"
+      },
+      "passed": false,
+      "crash": false
+    },
+    {
+      "name": "a codec that returns errors passes a vector expecting null",
+      "codec": "function decodeUplink(i) {\n  if (i.bytes.length < 2) return { errors: ['short'] };\n  return { data: { t: ((i.bytes[0] << 8 | i.bytes[1]) << 16 >> 16) / 10 } };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "09",
+        "expect": null
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "a syntax error fails even a vector expecting an error",
+      "codec": "function decodeUplink(i) {",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00",
+        "expect": null
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "a top-level throw fails even a vector expecting an error",
+      "codec": "throw new Error('top');\nfunction decodeUplink(i) { return { data: {} }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00",
+        "expect": null
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "a loop hits the time limit",
+      "codec": "function decodeUplink(i) { while (true) {} }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00",
+        "expect": null
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "a loop cannot catch the time limit",
+      "codec": "function decodeUplink(i) { try { while (true) {} } catch (e) { return { data: {} }; } }",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "bytes": "00"
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "returning undefined fails",
+      "codec": "function decodeUplink(i) {}",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00"
+      },
+      "passed": false,
+      "crash": true
+    },
+    {
+      "name": "a throw inside decodeUplink passes a vector expecting an error",
+      "codec": "function decodeUplink(i) { throw new Error('bad frame'); }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "00",
+        "expect": null
+      },
+      "passed": true,
+      "crash": true
+    },
+    {
+      "name": "Date output is its ISO string",
+      "codec": "function decodeUplink(i) { return { data: { at: new Date(Date.UTC(2026, 0, 2, 3, 4, 5)) } }; }",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "",
+        "expect": {
+          "at": "2026-01-02T03:04:05.000Z"
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "a wrapped Decoder returning errors refuses the frame",
+      "codec": "function Decoder(bytes, port) {\n  if (port !== 2) return { errors: [\"unknown\"] };\n  return { t: bytes[0] };\n}\nfunction Encoder(o, port) { return [o.t]; }\n\n// Added by codec-test: this codec is in The Things Network's older\n// Decoder(bytes, port) / Encoder(object, port) form.\nfunction decodeUplink(input) {\n  var decoded = Decoder(input.bytes, input.fPort);\n  return decoded && decoded.errors ? { errors: decoded.errors } : { data: decoded };\n}\nfunction encodeDownlink(input) {\n  return { bytes: Encoder(input.data, input.fPort), fPort: input.fPort };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "15",
+        "fPort": 9,
+        "expect": null
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "a wrapped Decoder decodes",
+      "codec": "function Decoder(bytes, port) {\n  if (port !== 2) return { errors: [\"unknown\"] };\n  return { t: bytes[0] };\n}\nfunction Encoder(o, port) { return [o.t]; }\n\n// Added by codec-test: this codec is in The Things Network's older\n// Decoder(bytes, port) / Encoder(object, port) form.\nfunction decodeUplink(input) {\n  var decoded = Decoder(input.bytes, input.fPort);\n  return decoded && decoded.errors ? { errors: decoded.errors } : { data: decoded };\n}\nfunction encodeDownlink(input) {\n  return { bytes: Encoder(input.data, input.fPort), fPort: input.fPort };\n}\n",
+      "lns": "chirpstack",
+      "vector": {
+        "name": "v",
+        "bytes": "15",
+        "fPort": 2,
+        "expect": {
+          "t": 21
+        }
+      },
+      "passed": true,
+      "crash": false
+    },
+    {
+      "name": "tts: its own Decoder fallback stores errors as data",
+      "codec": "function Decoder(bytes, port) {\n  if (port !== 2) return { errors: [\"unknown\"] };\n  return { t: bytes[0] };\n}\nfunction Encoder(o, port) { return [o.t]; }\n",
+      "lns": "tts",
+      "vector": {
+        "name": "v",
+        "bytes": "15",
+        "fPort": 9,
+        "expect": null
+      },
+      "passed": false,
+      "crash": false
+    }
+  ],
+  "wrap": [
+    {
+      "name": "Decoder and Encoder get decodeUplink and encodeDownlink",
+      "source": "function Decoder(bytes, port) {\n  if (port !== 2) return { errors: [\"unknown\"] };\n  return { t: bytes[0] };\n}\nfunction Encoder(o, port) { return [o.t]; }\n",
+      "wrapped": "function Decoder(bytes, port) {\n  if (port !== 2) return { errors: [\"unknown\"] };\n  return { t: bytes[0] };\n}\nfunction Encoder(o, port) { return [o.t]; }\n\n// Added by codec-test: this codec is in The Things Network's older\n// Decoder(bytes, port) / Encoder(object, port) form.\nfunction decodeUplink(input) {\n  var decoded = Decoder(input.bytes, input.fPort);\n  return decoded && decoded.errors ? { errors: decoded.errors } : { data: decoded };\n}\nfunction encodeDownlink(input) {\n  return { bytes: Encoder(input.data, input.fPort), fPort: input.fPort };\n}\n"
+    },
+    {
+      "name": "a codec with decodeUplink is left alone",
+      "source": "function decodeUplink(i) { return { data: {} }; }\nfunction Decoder(b) { return {}; }\n",
+      "wrapped": "function decodeUplink(i) { return { data: {} }; }\nfunction Decoder(b) { return {}; }\n"
+    }
+  ]
+}

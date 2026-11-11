@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codec-test"
+version = "0.1.0"
+description = "Run LoRaWAN payload codecs as ChirpStack or The Things Stack would, and test them against ChirpStack, TTN or Pulzar test vectors."
+readme = "README.md"
+authors = [{ name = "Joseph Telaak", email = "joseph@pulzr.net" }]
+license = "Apache-2.0"
+license-files = ["LICENSE", "THIRD_PARTY_LICENSES"]
+requires-python = ">=3.9"
+dependencies = ["quickjs>=1.19.4,<2", "PyYAML>=6"]
+
+[project.scripts]
+codec-test = "codec_test.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+codec_test = ["*.js"]

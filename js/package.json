@@ -1,0 +1,25 @@
+{
+  "name": "codec-test",
+  "version": "0.1.0",
+  "description": "Run LoRaWAN payload codecs in the browser as ChirpStack or The Things Stack would, and judge them against their test vectors.",
+  "license": "Apache-2.0",
+  "repository": "github:pulzar-net/codec-test",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
+  "files": ["dist", "LICENSE", "THIRD_PARTY_LICENSES"],
+  "scripts": {
+    "embed": "node scripts/embed-buffer.mjs",
+    "build": "npm run embed && tsc",
+    "test": "npm run embed && node --test test/conformance.test.ts",
+    "prepack": "cp ../LICENSE ../THIRD_PARTY_LICENSES . && npm run build"
+  },
+  "dependencies": {
+    "quickjs-emscripten": "^0.32.0"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.0",
+    "yaml": "^2.8.0"
+  }
+}

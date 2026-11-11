@@ -1,0 +1,43 @@
+uplinkDecoder:
+  fileName: decoder.js
+  examples:
+    - description: Open
+      input:
+        fPort: 1
+        bytes: [0x01, 0x00, 0x2A]
+      output:
+        data:
+          state: on
+          count: 42
+          open: true
+      normalizedOutput:
+        data:
+          - action:
+              contactState: 'open'
+    - description: Unknown FPort
+      input:
+        fPort: 9
+        bytes: [0x01, 0x00, 0x2A]
+      output:
+        errors:
+          - unknown FPort
+downlinkEncoder:
+  fileName: decoder.js
+  examples:
+    - description: Report every hour
+      input:
+        data:
+          interval: 3600
+      output:
+        bytes: [0x0E, 0x10]
+        fPort: 2
+downlinkDecoder:
+  fileName: decoder.js
+  examples:
+    - description: Report every hour
+      input:
+        fPort: 2
+        bytes: [0x0E, 0x10]
+      output:
+        data:
+          interval: 3600

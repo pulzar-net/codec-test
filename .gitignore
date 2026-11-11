@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.egg-info/
+build/
+node_modules/
+js/dist/
+js/src/buffer.ts
+js/LICENSE
+js/THIRD_PARTY_LICENSES

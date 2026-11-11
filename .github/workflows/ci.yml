@@ -1,0 +1,51 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install . pytest && pytest tests
+  js:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: js
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci && npm test && npm run build && npm pack --dry-run
+  action:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: passing vectors pass
+        uses: ./
+        with:
+          files: fixtures/formats/tests.json fixtures/formats/test_*.json fixtures/formats/*-codec.yaml
+      - name: make a failing vector
+        run: |
+          mkdir -p "$RUNNER_TEMP/bad"
+          cp fixtures/formats/decoder.js "$RUNNER_TEMP/bad/"
+          echo '[{"name": "wrong", "bytes": "01002a", "expect": {"count": 43}}]' > "$RUNNER_TEMP/bad/tests.json"
+      - name: a failing vector fails the step
+        id: bad
+        continue-on-error: true
+        uses: ./
+        with:
+          files: ${{ runner.temp }}/bad/tests.json
+      - if: steps.bad.outcome != 'failure'
+        run: echo "the Action passed a failing vector" && exit 1
